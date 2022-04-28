@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,13 +14,14 @@ import { SystemFilesTreeComponent } from './system-files-tree/system-files-tree.
 @NgModule({
   declarations: [
     AppComponent,
-    SystemFilesTreeComponent
+    SystemFilesTreeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxGraphModule
+    NgxGraphModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
