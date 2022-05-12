@@ -8,19 +8,6 @@ app.use(fileUpload());
 fs = require('fs');
 
 
-
-exec('tree', (error, stdout, stderr) => {
-    if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-    }
-    console.log(`stdout: ${stdout}`);
-});
-
 app.get('/get', function (req, res) {
    
     exec('pwd', (error, stdout, stderr) => {
@@ -56,7 +43,6 @@ app.get('/getSize/:fileDirectory/:fileName', function (req, res) {
 
 app.get('/getContent/:fileDirectory', function (req, res) {
     var directory = req.params.fileDirectory;
-    //var fileName = req.params.fileName;
     var fileData = fs.readFileSync(directory).toString('hex');
     var result = []
     for (var i = 0; i < fileData.length; i+=2){
@@ -82,9 +68,7 @@ app.get('/get/:directory/:fileName', function (req, res) {
     res.download(directory + fileName)
 })
 
-app.get('/test', function (req, res) {
-    
-    
+app.get('/tree', function (req, res) {
         exec('tree -J', (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
@@ -99,7 +83,7 @@ app.get('/test', function (req, res) {
     
  })
 
- app.get('/test/:directory', function (req, res) {
+ app.get('/tree/:directory', function (req, res) {
      var directory = req.params.directory
      console.log('directory', directory)
     exec(`cd ${directory} ; tree -J`, (error, stdout, stderr) => {
@@ -126,9 +110,6 @@ app.get('/isFile/:directory', function (req, res) {
 app.get('/addFolder/:directory/:folderName', function (req, res) {
     var directory = req.params.directory
     var folderName = req.params.folderName
-    console.log('directory', directory)
- 
-   
    exec(`cd ${directory} ; mkdir ${folderName}`, (error, stdout, stderr) => {
        if (error) {
            console.log(`error: ${error.message}`);
@@ -140,7 +121,6 @@ app.get('/addFolder/:directory/:folderName', function (req, res) {
        }
        res.send(stdout);
    })
-
 })
 
 app.get('/addFolder/:directory/:file', function (req, res) {
@@ -184,10 +164,7 @@ app.post('/upload:directory', function(req, res) {
     var directory = req.params.directory;
     console.log(directory)
     console.log(req.files.fileKey);
-    //fileUploaded.mv(directory + fileUploaded.name)
     fileUploaded.mv(directory + '/' +  fileUploaded.name)
-
-
     res.send(fileUploaded) // the uploaded file object
 
 
@@ -196,6 +173,5 @@ app.post('/upload:directory', function(req, res) {
 var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port
-   
    console.log("Example app listening at http://%s:%s", host, port)
 })

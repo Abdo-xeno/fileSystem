@@ -10,11 +10,6 @@
 <h2 mat-dialog-title *ngIf="data.operation == 'upload file'">File uploaded</h2>
 <h2 mat-dialog-title *ngIf="data.type == 'link'">Link Properties</h2>
 
-
-
-
-
-
 <mat-dialog-content>
     <div *ngIf="data.operation == 'checkProperties'">
         <p> Name : {{data.file.label}}</p>
@@ -27,46 +22,28 @@
 
     <p *ngIf="data.operation == 'addNewDirectory'"> You are trying to add a new folder in this folder "{{data.directory.label}}"</p>
     <p *ngIf="data.operation == 'addNewLink'"> You are trying to add a new link from "{{data.directory.label}}"</p>
-
-
     
     <mat-form-field *ngIf="data.operation == 'addNewDirectory'"appearance="fill" >
         <mat-label>Please fill the folder name</mat-label>
-        <input matInput  [(ngModel)]="folderNameCreated" >
+        <input matInput  maxlength="20" [(ngModel)]="folderNameCreated" >
+        <mat-hint align="end">{{folderNameCreated.length}}/20</mat-hint>
       </mat-form-field>
 
-      
       <mat-form-field *ngIf="data.operation == 'addNewLink'" style="width: 100%;" appearance="fill" >
         <mat-label>Please fill the target path of the link</mat-label>
         <input matInput  [(ngModel)]="targetNameCreated" >
       </mat-form-field>
-    
-
 
       <p *ngIf="data.operation == 'search folder'"> Redirecting to "{{data.folder}}" at directory {{data.path}}</p>
       <p *ngIf="data.operation == 'search file'"> {{data.file}} is downloaded with success !</p>
       <p *ngIf="data.operation == 'error raised'"> {{data.error}}</p>
-
       <p *ngIf="data.operation == 'upload file'"> "{{data.file.name}}" uploaded with success !</p>
 
-
-
-
-  
-
-
-      
- 
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <button *ngIf="data.operation == 'checkProperties' || data.operation == 'search folder' || data.operation == 'search file' || data.operation == 'error raised' || data.operation == 'upload file'"  style="margin-left: auto;" color="primary" mat-raised-button (click)="dialogRef.close(true)">Close</button>
-
     <button *ngIf="data.operation == 'addNewDirectory' || data.operation == 'addNewLink' " color="primary" mat-raised-button (click)="dialogRef.close()">Close</button>
     <button *ngIf="data.operation == 'addNewDirectory'" style="margin-left: auto;" color="primary" mat-raised-button (click)="dialogRef.close(folderNameCreated)">Add folder</button> 
     <button *ngIf="data.operation == 'addNewLink'" style="margin-left: auto;" color="primary" mat-raised-button (click)="dialogRef.close(targetNameCreated)">Add link</button>   
-  
-
-
-
 </mat-dialog-actions>

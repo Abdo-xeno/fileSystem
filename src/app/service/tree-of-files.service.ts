@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, retry, map, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +20,11 @@ export class TreeOfFilesService {
   constructor(private http: HttpClient,) { }
 
   getTreeOfFiles(): Observable<any[]> {
-    return this.http.get<any[]>(this.backEndUrl + 'test', this.httpOptions)
+    return this.http.get<any[]>(this.backEndUrl + 'tree', this.httpOptions)
   }
 
   getTreeOfFilesOfDirectory(directory: any): Observable<any[]> {
-    return this.http.get<any[]>(this.backEndUrl + 'test/' + directory, this.httpOptions)
+    return this.http.get<any[]>(this.backEndUrl + 'tree/' + directory, this.httpOptions)
   }
 
 

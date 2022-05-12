@@ -1,4 +1,4 @@
-<div class="eaton mat-typography" style="overflow-x:hidden; " fxFlexFill cdkScrollable>
+<div class="eaton mat-typography" style="overflow-x:hidden; margin-bottom: 30px; " fxFlexFill cdkScrollable>
 	<mat-toolbar color="primary" class="main-header mat-elevation-z4" [class.hidden]="toggleSearch">
 		<mat-toolbar-row style="padding: 0 5px;">
     <div style="padding:8px 0 0 10px; flex:1;">
@@ -33,29 +33,16 @@
        (change)="handleFileInput($event.target)" #fileUpload>
 
 
-<div class="file-upload" >
-
-
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-    </button>
-</div>
-<div class="file-upload">
-
-
- 
-
-
 <ngx-graph
   class="chart-container"
-  [view]="[1500, 1500]"
+  [view]="[1500, 2000]"
   [showMiniMap]="true"
   [links]=links
   [nodes]=initialNodes
   [zoomToFit$]="zoomToFit$"
   [update$]="update$"
   [center$]="center$"
+
   
 
 >
@@ -63,8 +50,8 @@
   
   <svg:g class="node" xmlns="http://www.w3.org/2000/xhtml">
     <svg:foreignObject width="300" height="40">
-      <xhtml:div class="cardContainer">
-        <label>{{ node.label }}</label>
+      <xhtml:div class="cardContainer" [ngStyle]="{'color': (node.type == 'file') ? 'blue' : (node.type == 'link') ? 'purple' : null}">
+        <mat-label>{{ node.label }}</mat-label>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -78,9 +65,6 @@
               <span>Add File</span>
             </button>
 
-            
-           
-          
           <button *ngIf="node.type == 'directory'" mat-menu-item (click)="addNewFolder(node)">
             <mat-icon>create_new_folder</mat-icon>
             <span>Add Folder</span>
@@ -116,10 +100,5 @@
     </svg:text>
   </svg:g>
 </ng-template>
-
-
-
-
-
 
 </ngx-graph>

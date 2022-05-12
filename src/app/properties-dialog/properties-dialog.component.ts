@@ -20,8 +20,6 @@ export class PropertiesDialog implements OnInit{
   
   constructor(public dialogRef: MatDialogRef<PropertiesDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log("data",data)
-      console.log("dataFile",data.file)
     }
 
   confirmMessage: string = 'test';
